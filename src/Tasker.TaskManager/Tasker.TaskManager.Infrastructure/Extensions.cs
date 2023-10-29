@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using Tasker.Shared.Extensions;
 using Tasker.TaskManager.Application.Abstractions.Repositories;
 using Tasker.TaskManager.Application.Abstractions.Services;
-using Tasker.Shared.Extensions;
 
 namespace Tasker.TaskManager.Infrastructure
 {
@@ -15,6 +14,6 @@ namespace Tasker.TaskManager.Infrastructure
             services.AddAllAsignableServices<IService>();
 
             return services;
-        }        
+        }
     }
 }

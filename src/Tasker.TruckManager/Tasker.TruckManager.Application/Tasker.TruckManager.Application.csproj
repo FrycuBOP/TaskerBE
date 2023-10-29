@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Tasker.Shared\Tasker.Shared\Tasker.Shared.csproj" />
     <ProjectReference Include="..\Tasker.TruckManager.Domain\Tasker.TruckManager.Domain.csproj" />
-    <ProjectReference Include="..\Tasker.TruckManager.Infrastructure\Tasker.TruckManager.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -32,7 +32,7 @@ namespace Tasker.TruckManager.API
 
         private static IEdmModel GetEdmModel()
         {
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            ODataConventionModelBuilder builder = new();
             builder.EntitySet<Truck>("Trucks");
 
             return builder.GetEdmModel();

@@ -27,7 +27,7 @@ namespace Tasker.Shared.Middlewares
                 context.Response.StatusCode = ex.StatusCode;
                 context.Response.ContentType = "application/json";
 
-                var json = JsonSerializer.Serialize(new { ErrorCode = errorCode,ex.ExceptionMessage });
+                var json = JsonSerializer.Serialize(new { ErrorCode = errorCode, ex.ExceptionMessage });
                 await context.Response.WriteAsync(json);
             }
             catch (Exception ex)
@@ -43,6 +43,6 @@ namespace Tasker.Shared.Middlewares
         }
 
         private static string ToUnderscoreCase(string value)
-            => string.Concat((value ?? string.Empty).Select((x, i) => i > 0 && char.IsUpper(x) && !char.IsUpper(value[i - 1]) ? $"_{x}" : x.ToString())).ToLower();
+            => string.Concat((value ?? string.Empty).Select((x, i) => i > 0 && char.IsUpper(x) && !char.IsUpper(value![i - 1]) ? $"_{x}" : x.ToString())).ToLowerInvariant();
     }
 }

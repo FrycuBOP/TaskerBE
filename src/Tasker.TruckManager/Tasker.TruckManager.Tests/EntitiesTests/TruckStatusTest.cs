@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tasker.TruckManager.Domain.Entities;
+﻿using Tasker.TruckManager.Domain.Entities;
 using Tasker.TruckManager.Domain.Enums;
 
 namespace Tasker.TruckManager.Tests.EntitiesTests
 {
-    
+
     public class TruckStatusTest
     {
         [Fact]
         public void ShoudlHaveOutOfServiceStatus()
         {
-            var truck = new Truck() { Name = "Test",Description = "truck"};
+            var truck = new Truck() { Name = "Test", Description = "truck" };
 
             truck.SetOutOfService();
 
@@ -23,7 +18,7 @@ namespace Tasker.TruckManager.Tests.EntitiesTests
         [Fact]
         public void ShoudlHaveAtJobStatus()
         {
-            var truck = new Truck() { Name = "Test", Description = "truck" };           
+            var truck = new Truck() { Name = "Test", Description = "truck" };
 
             Assert.True(truck.SetAtJob());
 
@@ -32,7 +27,7 @@ namespace Tasker.TruckManager.Tests.EntitiesTests
         [Fact]
         public void ShouldNotAllowToChangeStatusToAtJob()
         {
-            var truck = new Truck() { Name= "Test", Description = "truck" };
+            var truck = new Truck() { Name = "Test", Description = "truck" };
 
             truck.SetReturning();
 

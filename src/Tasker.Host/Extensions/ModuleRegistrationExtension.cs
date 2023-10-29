@@ -1,7 +1,7 @@
-﻿using Tasker.TaskManager.API;
-using Tasker.TruckManager.API;
-using Tasker.Shared;
+﻿using Tasker.Shared;
 using Tasker.Shared.Settings;
+using Tasker.TaskManager.API;
+using Tasker.TruckManager.API;
 
 namespace Tasker.Host.Extensions
 {

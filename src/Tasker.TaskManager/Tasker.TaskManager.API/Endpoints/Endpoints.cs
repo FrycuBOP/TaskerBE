@@ -11,7 +11,7 @@ namespace Tasker.TaskManager.API.Endpoints
     {
         internal static IApplicationBuilder MapEndpoints(this IApplicationBuilder app)
         {
-           
+
             app.UseEndpoints(endpoints =>
             endpoints.MapGroup("task-manager")
                 .MapTaskManagerApi().WithTags("Task Manager").WithOpenApi());

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Tasker.TruckManager.Infrastructure.Interfaces.Repositories;
-using Tasker.TruckManager.Infrastructure.Interfaces.Services;
 using Tasker.Shared.Extensions;
+using Tasker.TruckManager.Application.Interfaces.Repositories;
+using Tasker.TruckManager.Application.Interfaces.Services;
 
 namespace Tasker.TruckManager.Infrastructure
 {
@@ -9,7 +9,8 @@ namespace Tasker.TruckManager.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-
+            services.AddAllAsignableServices<IRepository>();
+            services.AddAllAsignableServices<IService>();
             return services;
         }
     }

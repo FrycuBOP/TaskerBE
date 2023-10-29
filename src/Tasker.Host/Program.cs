@@ -13,6 +13,7 @@ builder.Services.AddRouting();
 
 var modulesSettings = new ModulesSettings();
 builder.Configuration.GetSection("ModulesSettings").Bind(modulesSettings);
+
 builder.Services.AddModules(modulesSettings);
 var app = builder.Build();
 

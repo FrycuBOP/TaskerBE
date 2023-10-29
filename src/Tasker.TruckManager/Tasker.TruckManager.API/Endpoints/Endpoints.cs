@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.OData.Extensions;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.OData.Query;
-using Tasker.TruckManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Tasker.TruckManager.Infrastructure.Interfaces.Services;
+using Microsoft.AspNetCore.Routing;
+using Tasker.TruckManager.Application.Interfaces.Services;
+using Tasker.TruckManager.Domain.Entities;
 
 namespace Tasker.TruckManager.API.Endpoints
 {
@@ -23,7 +21,7 @@ namespace Tasker.TruckManager.API.Endpoints
         }
         private static RouteGroupBuilder MapTaskManagerApi(this RouteGroupBuilder builder)
         {
-            builder.MapGet("truck", async ([FromServices]ITruckService _truckService,[FromQuery] string id, CancellationToken cancellationToken) =>
+            builder.MapGet("truck", async ([FromServices] ITruckService _truckService, [FromQuery] string id, CancellationToken cancellationToken) =>
             {
                 return await _truckService.GetById(Guid.Parse(id), cancellationToken);
             });
