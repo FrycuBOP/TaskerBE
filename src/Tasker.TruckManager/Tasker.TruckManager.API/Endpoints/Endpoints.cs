@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Tasker.Shared.Exceptions.CommonExceptions;
 using Tasker.TruckManager.Application.Interfaces.Services;
 using Tasker.TruckManager.Domain.Entities;
 
@@ -23,7 +24,12 @@ namespace Tasker.TruckManager.API.Endpoints
         {
             builder.MapGet("truck", async ([FromServices] ITruckService _truckService, [FromQuery] string id, CancellationToken cancellationToken) =>
             {
-                return await _truckService.GetById(Guid.Parse(id), cancellationToken);
+                var guidId = new Guid();
+                if (!Guid.TryParse(id, out guidId))
+                {
+                    throw new BadRequestException("id value is incorrect");
+                }
+                return await _truckService.GetById(guidId, cancellationToken);
             });
 
             builder.MapPost("truck", async ([FromServices] ITruckService _truckService, [FromBody] Truck truck, CancellationToken cancellationToken) =>
