@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tasker.TruckManager.Domain\Tasker.TruckManager.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

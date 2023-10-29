@@ -12,7 +12,7 @@ namespace Tasker.Shared.Extensions
     {
         public static IServiceCollection AddAllAsignableServices<T>(this IServiceCollection services) where T : class
         {
-            var list = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterface(typeof(T).Name) != null && !t.IsInterface).ToList();
+            var list = Assembly.GetCallingAssembly().GetTypes().Where(t => t.GetInterface(typeof(T).Name) != null && !t.IsInterface).ToList();
 
             foreach (var service in list)
             {

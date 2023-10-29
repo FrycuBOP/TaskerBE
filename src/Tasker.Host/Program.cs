@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.OData;
 using Tasker.Host.Extensions;
+using Tasker.Shared.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,18 +8,24 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddModules();
+builder.Services.AddMvc().AddOData();
+builder.Services.AddRouting();
+
+var modulesSettings = new ModulesSettings();
+builder.Configuration.GetSection("ModulesSettings").Bind(modulesSettings);
+builder.Services.AddModules(modulesSettings);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseReDoc(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-app.UseModlues();
+    opt.RoutePrefix = "docs";
+    opt.SpecUrl("/swagger/v1/swagger.json");
+    opt.DocumentTitle = "Tasker Doc";
+});
+app.UseRouting();
+app.UseModlues(modulesSettings);
 app.MapGet("/", () =>
 {
     return "Tasker Host Api";

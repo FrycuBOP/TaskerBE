@@ -1,7 +1,11 @@
-﻿
+﻿using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.OData.Query;
+using Tasker.TruckManager.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Tasker.TruckManager.Infrastructure.Interfaces.Services;
 
 namespace Tasker.TruckManager.API.Endpoints
 {
@@ -10,36 +14,37 @@ namespace Tasker.TruckManager.API.Endpoints
         internal static IApplicationBuilder MapEndpoints(this IApplicationBuilder app)
         {
             app.UseEndpoints(endpoints =>
-            endpoints.MapGroup("truck-manager")
-                .MapTaskManagerApi().WithTags("Truck Manager").WithOpenApi());
-
+            {
+                endpoints.MapControllers();
+                endpoints.MapGroup("truck-manager")
+                    .MapTaskManagerApi().WithTags("Truck Manager").WithOpenApi();
+            });
             return app;
         }
-
-
         private static RouteGroupBuilder MapTaskManagerApi(this RouteGroupBuilder builder)
         {
-            builder.MapGet("truck", () =>
+            builder.MapGet("truck", async ([FromServices]ITruckService _truckService,[FromQuery] string id, CancellationToken cancellationToken) =>
             {
-                return "List Of Tasks";
+                return await _truckService.GetById(Guid.Parse(id), cancellationToken);
             });
-            builder.MapGet("truck", async ([FromServices] ITaskService taskService, string taskId) =>
+
+            builder.MapPost("truck", async ([FromServices] ITruckService _truckService, [FromBody] Truck truck, CancellationToken cancellationToken) =>
             {
-                await taskService.GetAllAsync();
-                return $"Task {taskId}";
+                return await _truckService.AddTruck(truck, cancellationToken);
             });
-            builder.MapDelete("truck", (string taskId) =>
+
+            builder.MapPut("truck", async ([FromServices] ITruckService _truckService, [FromBody] Truck truck, CancellationToken cancellationToken) =>
             {
-                return $"Task {taskId} deleted";
+                await _truckService.Update(truck, cancellationToken);
+
+                return Results.Ok();
             });
-            builder.MapPost("truck", async ([FromServices] ITaskService taskService, [FromBody] TaskModel task) =>
+
+            builder.MapDelete("truck", async ([FromServices] ITruckService _truckService, [FromBody] string id, CancellationToken cancellationToken) =>
             {
-                await taskService.AddAsync(task);
-                return "Create Task";
-            });
-            builder.MapPut("truck", ([FromServices] ITaskService taskService, [FromBody] TaskModel task) =>
-            {
-                return "updated Task";
+                await _truckService.Delete(Guid.Parse(id), cancellationToken);
+
+                return Results.Ok();
             });
 
             return builder;

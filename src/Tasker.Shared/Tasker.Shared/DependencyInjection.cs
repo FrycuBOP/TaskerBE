@@ -14,6 +14,7 @@ namespace Tasker.Shared
     {
         public static IServiceCollection AddShared(this IServiceCollection services)
         {
+            services.AddScoped<ExceptionMiddleware>();
             return services;
         }
 

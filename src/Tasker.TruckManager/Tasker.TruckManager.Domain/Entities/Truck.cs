@@ -12,8 +12,8 @@ namespace Tasker.TruckManager.Domain.Entities
     {
         public Guid Id { get; set; }
         public required string Name { get; set; }
-        public StatusEnum Status { get; private set; } = StatusEnum.Returned;
-        public string Description { get; set; }
+        public StatusEnum Status { get; private set; } = StatusEnum.OutOfService;
+        public string? Description { get; set; }
 
 
         public void SetOutOfService()
@@ -35,34 +35,43 @@ namespace Tasker.TruckManager.Domain.Entities
 
         public bool SetToJob()
         {
-            if (Status == StatusEnum.OutOfService || Status == StatusEnum.Loading)
+            if (Status == StatusEnum.OutOfService ||
+                Status == StatusEnum.Loading ||
+                Status == StatusEnum.ToJob)
             {
                 Status = StatusEnum.ToJob;
                 return true;
             }
             return false;
         }
+
         public bool SetAtJob()
         {
-            if (Status == StatusEnum.OutOfService || Status == StatusEnum.ToJob)
+            if (Status == StatusEnum.OutOfService ||
+                Status == StatusEnum.ToJob ||
+                Status == StatusEnum.AtJob)
             {
                 Status = StatusEnum.AtJob;
                 return true;
             }
             return false;
         }
+
         public bool SetReturning()
         {
-            if(Status == StatusEnum.OutOfService ||Status == StatusEnum.AtJob)
+            if (Status == StatusEnum.OutOfService ||
+                Status == StatusEnum.AtJob ||
+                Status == StatusEnum.Returning)
             {
                 Status = StatusEnum.Returning;
                 return true;
             }
             return false;
         }
+
         public bool SetReturned()
         {
-            if(Status == StatusEnum.OutOfService || Status == StatusEnum.Returning)
+            if (Status == StatusEnum.OutOfService || Status == StatusEnum.Returning || Status == StatusEnum.Returned)
             {
                 Status = StatusEnum.Returned;
                 return true;

@@ -2,6 +2,7 @@
 using System.Reflection;
 using Tasker.TaskManager.Application.Abstractions.Repositories;
 using Tasker.TaskManager.Application.Abstractions.Services;
+using Tasker.Shared.Extensions;
 
 namespace Tasker.TaskManager.Infrastructure
 {
@@ -14,20 +15,6 @@ namespace Tasker.TaskManager.Infrastructure
             services.AddAllAsignableServices<IService>();
 
             return services;
-        }
-
-
-
-        private static IServiceCollection AddAllAsignableServices<T>(this IServiceCollection services) where T : class
-        {
-            var list = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterface(typeof(T).Name) != null && !t.IsInterface).ToList();
-
-            foreach (var service in list)
-            {
-                services.AddTransient(service.GetInterface($"I{service.Name}")!, service);
-            }
-
-            return services;
-        }
+        }        
     }
 }
