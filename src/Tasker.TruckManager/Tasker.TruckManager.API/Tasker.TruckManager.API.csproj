@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.2.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tasker.TruckManager.Application\Tasker.TruckManager.Application.csproj" />
+    <ProjectReference Include="..\Tasker.TruckManager.Domain\Tasker.TruckManager.Domain.csproj" />
+    <ProjectReference Include="..\Tasker.TruckManager.Infrastructure\Tasker.TruckManager.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
